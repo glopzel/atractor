@@ -2,10 +2,6 @@
 ----- Coding Tutorial by Patt Vira ----- 
 Name: Lorenz Attractor
 Video Tutorial: https://youtu.be/YM_7YpV95V8
-
-Connect with Patt: @pattvira
-https://www.pattvira.com/
-----------------------------------------
 */
 
 let sigma = 10; let rho = 28; let beta = 8/3; 
@@ -17,6 +13,31 @@ let mic;
 let amplitude;
 let fft;
 let spectrum;
+
+function getFullScreen() {
+  return (
+    document.fullscreenElement ||
+    document.webkitFullScreenElement ||
+    document.mozFullScreenElement ||
+    document.msFullScreenElement
+  );
+}
+
+function toggleScreen() {
+  if (getFullScreen()) {
+    document.exitFullscreen();
+  } else {
+    document.documentElement.requestFullscreen().catch(console.log);
+  }
+}
+
+document.addEventListener("click", () => {
+  toggleScreen();
+});
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
 
 function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL);
@@ -34,7 +55,7 @@ function setup() {
         fft.setInput(mic);
     });   
 
-    background(0);
+    // background(0);
     for (let i=0; i<num; i++) {
         let initCond = (i + 1)*0.05;
         let c = color((i+1) / num * 255, 100, 255);
