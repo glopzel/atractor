@@ -69,10 +69,6 @@ function setup() {
 function draw() {
     spectrum = fft.analyze();
 
-    let bass = fft.getEnergy("bass");
-    let mid = fft.getEnergy("mid");
-    let treble = fft.getEnergy("treble");
-
     let volume = amplitude.getLevel();
     let brightness = map(volume, 0, 0.03, 0, 255);
     brightness = constrain(brightness, 0, 255);
@@ -81,7 +77,7 @@ function draw() {
     scale(5);
   
     for (let i=0; i<num; i++) {
-        attractors[i].setColor(bass, mid, treble, brightness);
+        attractors[i].setBrightness(brightness);
         attractors[i].update();
         attractors[i].display();
     }

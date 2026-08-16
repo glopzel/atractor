@@ -8,10 +8,8 @@ class Attractor {
     
     this.points = [];
 
-    this.bassRange = 0;
-    this.midRange = 0;
-    this.highRange = 0;
-    this.brightness = 0;
+    this.hue = random(360);
+    this.brightness = 255;
   }
   
   update() {
@@ -37,7 +35,9 @@ class Attractor {
     let prev = this.points[this.points.length - 2];
     let curr = this.points[this.points.length - 1];
 
-    stroke(this.bassRange, this.bassRange, this.highRange, this.brightness);
+    colorMode(HSB, 360, 100, 100, 255);
+
+    stroke(this.hue, 100, 100, this.brightness);
     strokeWeight(1);
 
     line(
@@ -46,10 +46,7 @@ class Attractor {
     );
   }
 
-  setColor(bass, mid, treble, brightness) {
-    this.bassRange = bass;
-    this.midRange = mid;
-    this.highRange = treble;
+  setBrightness(brightness) {
     this.brightness = brightness;
   }
 }
