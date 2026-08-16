@@ -70,7 +70,7 @@ function draw() {
     spectrum = fft.analyze();
 
     let volume = amplitude.getLevel();
-    let brightness = map(volume, 0, 0.03, 0, 255);
+    let brightness = map(volume, 0, 0.03, 30, 255);
     brightness = constrain(brightness, 0, 255);
   
     orbitControl();
