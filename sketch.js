@@ -1,13 +1,8 @@
-/*
------ Coding Tutorial by Patt Vira ----- 
-Name: Lorenz Attractor
-Video Tutorial: https://youtu.be/YM_7YpV95V8
-*/
-
 let sigma = 10; let rho = 28; let beta = 8/3; 
-let dt = 0.01; let maxPoints = 100;
+let dt = 0.01; let maxPoints = 30;
+let previousVolume = 0;
 
-let attractors = []; let num = 20;
+let attractors = []; let num = 12;
 
 let mic;
 let amplitude;
@@ -67,22 +62,31 @@ function setup() {
 }
 
 function draw() {
-    spectrum = fft.analyze();
+  spectrum = fft.analyze();
 
-    let volume = amplitude.getLevel();
-    let brightness = map(volume, 0, 0.03, 30, 255);
-    brightness = constrain(brightness, 0, 255);
-  
-    orbitControl();
-    scale(5);
-  
-    for (let i=0; i<num; i++) {
-        attractors[i].setBrightness(brightness);
-        attractors[i].update();
-        attractors[i].display();
-    }
+  let volume = amplitude.getLevel();
+
+  let brightness = map(volume, 0, 0.03, 30, 255);
+
+  brightness = constrain(brightness, 30, 255);
+
+  let hit = volume - previousVolume;
+  previousVolume = volume;
+
+  orbitControl();
+  scale(5);
+
+  for (let i = 0; i < num; i++) {
+    attractors[i].setBrightness(brightness);
+
+    // Sudden sound = spark
+  if (hit > 0.002) {
+    attractors[i].spark = 1;
+  }
+
+    attractors[i].update();
+    attractors[i].display();
+  }
 }
-
-
 
 
