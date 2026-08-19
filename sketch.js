@@ -73,7 +73,7 @@ function draw() {
   let hit = volume - previousVolume;
   previousVolume = volume;
 
-  orbitControl();
+  // orbitControl();
   scale(5);
 
   for (let i = 0; i < num; i++) {
